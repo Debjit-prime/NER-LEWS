@@ -1,7 +1,9 @@
 import { initialZones, initialAlerts, initialReports } from '../data/seedData';
 import { calculateClientRiskScore } from './riskCalculator';
 
-const API_BASE = '/api';
+// In production, uses Render live backend; in local development, proxies through Vite to /api
+const RAW_API_URL = import.meta.env.VITE_API_URL || '/api';
+const API_BASE = RAW_API_URL.endsWith('/') ? RAW_API_URL.slice(0, -1) : RAW_API_URL;
 
 export const api = {
   // Fetch hazard zones
