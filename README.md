@@ -5,6 +5,21 @@
 
 ---
 
+# NER-LEWS: North Eastern Region Landslide Early Warning System
+
+## 🚀 Overview
+This is a project I managed, prompted, and successfully deployed during my first year of B.Tech. 
+
+## 🛠️ My Role & Achievements
+* **AI Architecture & Prompting:** Formulated the logic and used AI tools to generate the codebase and documentation.
+* **DevOps & Cloud Deployment:** Configured, managed, and successfully deployed the frontend on **Vercel** and the backend/database on **Render**.
+* **Environment Configuration:** Handled the setup of environment variables and deployment pipelines.
+
+## 🧠 What I Am Learning From This
+Because the code was AI-generated, I am currently using this repository as a live study guide to:
+1. Reverse-engineer the code structure to understand how the components interact.
+2. Learn how the frontend communicates with the deployed backend.
+
 ## 🌟 Key Features
 
 1. **Exact Visual Fidelity to Stitch UI/UX Design System**: Implemented strictly using modern institutional tokens (Dark Navy `#091426`, Slate White `#f7f9fb`, and the 4-tier risk semantic palette).
