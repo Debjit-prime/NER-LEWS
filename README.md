@@ -1,138 +1,118 @@
 # NER-LEWS: North Eastern Region Landslide Early Warning System 🏔️🚨
 
-**Smart India Hackathon (SIH 2026) Prototype**  
-*A full-stack, AI and rule-based multi-hazard landslide early warning and decision-support platform designed for the 8 North Eastern Region (NER) states of India.*
+[![Vercel Deployment](https://img.shields.io/badge/Frontend-Live%20on%20Vercel-success?style=for-the-badge&logo=vercel)](https://ner-lews.vercel.app/)
+[![Render Deployment](https://img.shields.io/badge/Backend-Live%20on%20Render-informational?style=for-the-badge&logo=render)](https://ner-lews.onrender.com/api/health)
+[![Hackathon](https://img.shields.io/badge/Smart%20India%20Hackathon-SIH%202026-blue?style=for-the-badge)](https://sih.gov.in/)
+[![AI-Assisted](https://img.shields.io/badge/Development-AI--Assisted%20Prototyping-orange?style=for-the-badge)](https://github.com)
+
+**NER-LEWS** is a full-stack, rule-based multi-hazard Landslide Early Warning System (LEWS) and decision-support platform engineered specifically for the 8 North Eastern Region (NER) states of India (*Meghalaya, Mizoram, Assam, Arunachal Pradesh, Sikkim, Nagaland, Manipur, Tripura*).
 
 ---
 
-# NER-LEWS: North Eastern Region Landslide Early Warning System
+## 🌐 Live Production Links
 
-## 🚀 Overview
-This is a project I managed, prompted, and successfully deployed during my first year of B.Tech. 
-
-## 🛠️ My Role & Achievements
-* **AI Architecture & Prompting:** Formulated the logic and used AI tools to generate the codebase and documentation.
-* **DevOps & Cloud Deployment:** Configured, managed, and successfully deployed the frontend on **Vercel** and the backend/database on **Render**.
-* **Environment Configuration:** Handled the setup of environment variables and deployment pipelines.
-
-## 🧠 What I Am Learning From This
-Because the code was AI-generated, I am currently using this repository as a live study guide to:
-1. Reverse-engineer the code structure to understand how the components interact.
-2. Learn how the frontend communicates with the deployed backend.
-
-## 🌟 Key Features
-
-1. **Exact Visual Fidelity to Stitch UI/UX Design System**: Implemented strictly using modern institutional tokens (Dark Navy `#091426`, Slate White `#f7f9fb`, and the 4-tier risk semantic palette).
-2. **Transparent, Explainable Risk Scoring Engine**: An empirical multi-criteria decision algorithm (Precipitation 35%, Soil Moisture 30%, Elevation 20%, Humidity 15%, and Thermal Stress modifier) that the non-technical team can explain line-by-line to SIH judges.
-3. **Interactive GIS Risk Map**: Leaflet.js with OpenStreetMap (100% free, no API keys needed), featuring animated radar pulses for severe/high-risk zones, district filters, and station popups.
-4. **Humanoid AI Assistant Guide & Multilingual Speech Synthesis**: Interactive avatar on the dashboard with browser-native Web Speech API narration in **English, Assamese (অসমীয়া), Hindi (हिन्दी), and Bengali (বাংলা)**.
-5. **Citizen Hazard Field Reporting**: Geotagged camera/photo upload form with auto GPS capture that automatically syncs with the Authority Admin Dashboard.
-6. **Authority Admin Dashboard & SMS Simulator**: 4 tabbed sections (Overview, Zones, Citizen Reports, and Settings) with an emergency SMS broadcast simulator and carrier log terminal.
-7. **Offline-First & Zero-Cost Architecture**: Runs reliably on any laptop without needing paid API keys or cloud databases.
+- 🖥️ **Live Frontend Web Application**: [https://ner-lews.vercel.app/](https://ner-lews.vercel.app/)
+- ⚙️ **Live Backend REST API**: [https://ner-lews.onrender.com/](https://ner-lews.onrender.com/)
+- 🩺 **API Health Check**: [https://ner-lews.onrender.com/api/health](https://ner-lews.onrender.com/api/health)
 
 ---
 
-## 💻 Tech Stack (100% Free Tier Friendly)
+## 🤖 Full Transparency & AI Attribution Disclosure
 
-| Layer | Technology | Cost / Key Requirement |
-|---|---|---|
-| **Frontend** | React 18 + Vite + Tailwind CSS | Free, zero-config build |
-| **Backend** | Node.js + Express REST API | Free |
-| **Maps** | Leaflet.js + OpenStreetMap Tiles | Free (No Google Maps API key required) |
-| **Voice TTS** | Browser-Native Web Speech API | Free (No external cloud speech API required) |
-| **SMS Alerts** | Telecom Sandbox + In-App Demo Mode Simulator | Free (Twilio optional) |
-| **Database** | In-Memory / Local Pre-Seeded JSON Storage | Zero setup needed |
+> **Transparency Statement for Smart India Hackathon (SIH 2026) Judges & Reviewers:**  
+> This project was developed through **AI-assisted rapid prototyping**:
+> 
+> - **UI/UX Design & Layout**: Conceptualized and generated using **Stitch** (exporting modern institutional disaster management design tokens).
+> - **Full-Stack Implementation & Codebase**: Engineered in collaboration with **Google Antigravity AI** (AI pair programmer for React, Leaflet, Express, and Web Speech API integration).
+> - **Domain Problem Definition & Architectural Direction**: Formulated by the student team (identifying Eastern Himalayan slope vulnerability, specifying the 5-parameter geotechnical risk formula, and defining zero-cost public deployment requirements).
 
 ---
 
-## 🚀 Step-by-Step Quickstart Guide (For Non-Technical Team)
+## 🌟 Key Capabilities
 
-Follow these simple steps in your terminal to run the complete app locally on your laptop:
-
-### Step 1: Open Terminal in the project folder
-```bash
-cd /path/to/Landslide
-```
-
-### Step 2: Install dependencies (one-time setup)
-```bash
-cd backend && npm install && cd ../frontend && npm install && cd ..
-```
-
-### Step 3: Run the Development Server
-```bash
-npm run dev
-```
-
-Your terminal will display:
-- **Frontend URL**: `http://localhost:5173`
-- **Backend API URL**: `http://localhost:5001`
-
-Open your web browser and navigate to **`http://localhost:5173`** to test the live app!
+1. **🎨 Exact Stitch UI/UX Design System**: High-contrast institutional dark navy (`#091426`) and slate surface (`#f7f9fb`) theme with 4-tier risk semantic color indicators.
+2. **🧠 Transparent, Explainable Risk Scoring Engine**: Pure mathematical Multi-Criteria Decision Analysis (MCDA) model that runs transparently without black-box machine learning.
+3. **🗺️ Interactive GIS Hazard Map**: Built with **Leaflet.js + OpenStreetMap** (100% free, no Google Maps API keys needed) with animated radar pulse markers and district filters.
+4. **🗣️ Humanoid Avatar Guide & Multilingual Web Speech API**: Text-to-speech audio advisories synthesized directly in the browser across **English, Assamese (অসমীয়া), Hindi (हिन्दी), and Bengali (বাংলা)**.
+5. **📸 Citizen Geotagged Field Reports**: Auto-captures browser GPS coordinates and visual evidence (photos/videos) with instant synchronization to the Authority Admin Dashboard.
+6. **🛡️ Authority Dashboard & SMS Broadcast Simulator**: Admin oversight across 4 tabs (*Overview, Hazard Zones, Citizen Reports, and Settings*) with a live telecom SMS broadcast simulator.
+7. **🔌 100% Free Tier & Offline-First**: Operates seamlessly on local laptops and cloud hosting without requiring paid third-party APIs.
 
 ---
 
-## 🧠 Risk Scoring Formula (How to Explain to Judges)
+## 📐 The Risk Scoring Formula (How to Explain to Judges)
 
-The core risk engine is isolated in [`backend/riskScoring.js`](file:///Users/the_gruesome_knight/Documents/Projects/Landslide/backend/riskScoring.js).
+The core risk engine is isolated in [`backend/riskScoring.js`](./backend/riskScoring.js) with line-by-line comments.
 
-### Step 1: Normalize 5 inputs to 0–10 sub-scores
-- **24h Precipitation (Rainfall)**:
-  - `0 mm` → `0.0`
-  - `50 mm` → `3.0`
-  - `100 mm` → `6.0`
-  - `150+ mm` → `10.0` (Capped at 10)
-- **Soil Moisture**: Linear scale `0%` → `0.0`, `100%` → `10.0` (`soilMoisture / 10`)
-- **Humidity**: Linear scale `0%` → `0.0`, `100%` → `10.0` (`humidity / 10`)
-- **Elevation**: Banded terrain hazard scale:
-  - `0–500 m` (Valleys) → `2.0`
-  - `500–1500 m` (Foothills/Plateaus) → `5.0`
-  - `1500–2500 m` (Steep Slopes) → `8.0`
-  - `2500+ m` (Alpine Ridge) → `10.0`
-- **Temperature Modifier**:
-  - `15°C to 30°C` → `0.0` (Stable thermal state)
-  - `<15°C` or `>30°C` → `+0.5` (Thermal expansion/frost fracturing stress on rock joints)
+### Step 1: Normalizing 5 Inputs to 0–10 Sub-Scores
+1. **Precipitation (24h Rainfall in mm)**:
+   - `0 mm` → `0.0`
+   - `50 mm` → `3.0`
+   - `100 mm` → `6.0`
+   - `150+ mm` → `10.0` (Linear interpolation, capped at 10)
+2. **Soil Moisture (%)**: `0%` → `0.0`, `100%` → `10.0` (Linear scale: `soilMoisture / 10`)
+3. **Humidity (%)**: `0%` → `0.0`, `100%` → `10.0` (Linear scale: `humidity / 10`)
+4. **Elevation (Terrain Altitude in meters)**:
+   - `0–500 m` (Valleys/Plains) → `2.0`
+   - `500–1500 m` (Foothills/Plateaus) → `5.0`
+   - `1500–2500 m` (Steep Slopes) → `8.0`
+   - `2500+ m` (Alpine Ridge Lines) → `10.0`
+5. **Temperature Modifier**:
+   - `15°C to 30°C` → `0.0` (Neutral thermal slope equilibrium)
+   - `<15°C` or `>30°C` → `+0.5` (Thermal expansion / frost fracturing on rock joints)
 
-### Step 2: Calculate Weighted Final Score
-$$\text{Final Score} = (\text{Precipitation} \times 0.35) + (\text{Soil Moisture} \times 0.30) + (\text{Humidity} \times 0.15) + (\text{Elevation} \times 0.20) + \text{Temperature Modifier}$$
+### Step 2: Weighted Final Calculation
+$$\text{Final Score} = (\text{Precipitation} \times 0.35) + (\text{Soil Moisture} \times 0.30) + (\text{Elevation} \times 0.20) + (\text{Humidity} \times 0.15) + \text{Temperature Modifier}$$
 
 *Clamped between `0.0` and `10.0`.*
 
-### Step 3: Map to Risk Bands & Advisories
-- **`0.0 – 3.0` → LOW RISK (Green `#22c55e`)**: *"Conditions stable. Continue routine monitoring."*
-- **`3.1 – 6.0` → MODERATE RISK (Amber `#eab308`)**: *"Increased risk detected. Notify local field officers for inspection."*
-- **`6.1 – 8.0` → HIGH RISK (Orange `#ea580c`)**: *"High risk conditions. Recommend road advisory and resident alert."*
-- **`8.1 – 10.0` → SEVERE RISK (Red `#ba1a1a`)**: *"Critical risk. Recommend immediate evacuation advisory and road closure."*
+### Step 3: Risk Classification Bands & Advisories
+- 🟢 **`0.0 – 3.0` → LOW RISK**: *"Conditions stable. Continue routine monitoring."*
+- 🟡 **`3.1 – 6.0` → MODERATE RISK**: *"Increased risk detected. Notify local field officers for inspection."*
+- 🟠 **`6.1 – 8.0` → HIGH RISK**: *"High risk conditions. Recommend road advisory and resident alert."*
+- 🔴 **`8.1 – 10.0` → SEVERE RISK**: *"Critical risk. Recommend immediate evacuation advisory and road closure."*
 
 ---
 
-## 🗺️ Application Pages
+## 🧭 Application Pages
 
-1. **Home / Risk Dashboard (`/`)**: Humanoid avatar guide with audio narration, primary East Khasi Hills status card, 24h rainfall, soil moisture, and road transit status.
-2. **GIS Risk Map (`/map`)**: Full-screen interactive Leaflet map covering all 8 NER states with color-coded radar markers, district filters, and popup cards.
-3. **Citizen Report Upload (`/report`)**: Photo capture dropzone with live GPS geolocation detection, condition tags, and instant sync to SDMA authority.
-4. **Active Alerts Feed (`/alerts`)**: Severity-colored cards with multilingual translation (`EN`, `AS`, `HI`, `BN`) and one-click Web Speech API audio playback.
-5. **Authority Portal (`/authority`)**: High-risk zones bento grid, live sensor table, citizen submissions review (with SDRF dispatch actions), and SMS gateway settings.
-6. **Risk Scoring Engine (`/risk-scoring`)**: Real-time slider calibrator with animated semi-circle gauge, presets (Cherrapunji, Aizawl, Nongstoin), and direct dispatch to authority.
-
----
-
-## ☁️ Free Cloud Deployment Guide
-
-### Deploy Frontend (Vercel / Netlify)
-1. Push this repository to GitHub.
-2. Connect repository to [Vercel](https://vercel.com) or [Netlify](https://netlify.com).
-3. Set **Root Directory** to `frontend`.
-4. Build command: `npm run build`, Output directory: `dist`.
-
-### Deploy Backend (Render / Railway)
-1. Connect repository to [Render](https://render.com) or [Railway](https://railway.app).
-2. Set **Root Directory** to `backend`.
-3. Build command: `npm install`, Start command: `node server.js`.
+| Route | Page | Description |
+|---|---|---|
+| **`/`** | **Home / Risk Dashboard** | Humanoid avatar guide with audio narration, primary East Khasi Hills status card, and live telemetry metrics. |
+| **`/map`** | **GIS Risk Map** | Interactive Leaflet map with animated radar pulse pins for high/severe risk zones and district filters. |
+| **`/risk-scoring`** | **Risk Scoring Engine** | Real-time 5-parameter calculator with animated gauge and preset scenario calibration (*Cherrapunji, Aizawl, Nongstoin*). |
+| **`/alerts`** | **Active Alerts Feed** | Real-time emergency cards with one-click multilingual voice playback (**EN, AS, HI, BN**). |
+| **`/report`** | **Citizen Hazard Report** | Photo upload dropzone with auto GPS location detection and instant sync to SDMA. |
+| **`/authority`** | **Authority Portal** | High-risk zones bento grid, live sensor table, citizen reports review queue, and SMS broadcast simulation. |
 
 ---
 
-## ⚖️ Hackathon Transparency Note (Real vs. Simulated Data)
-- **Topography & Coordinates**: Real georeferenced coordinates across 10+ North Eastern hazard zones (Cherrapunji, Mawsynram, Aizawl, Tawang, Haflong, Gangtok, Kohima, Senapati).
-- **Sensor Telemetry**: Pre-calibrated sample dataset modeled after real IMD monsoon patterns.
-- **SMS Alerts**: Includes a clearly labeled Demo Mode toggle that simulates telecom carrier transmission in real time.
+## 🚀 How to Run Locally
+
+### Prerequisites
+- Node.js (v18+ or v20+)
+- npm
+
+### Quick Start Commands
+```bash
+# 1. Clone or open the repository
+git clone https://github.com/YOUR_USERNAME/NER-LEWS.git
+cd NER-LEWS
+
+# 2. Install dependencies
+cd backend && npm install && cd ../frontend && npm install && cd ..
+
+# 3. Start development environment
+npm run dev
+```
+
+- **Frontend**: `http://localhost:5173`
+- **Backend**: `http://localhost:5001`
+
+---
+
+## 📜 License & Acknowledgments
+
+- **Hackathon**: Developed for the **Smart India Hackathon (SIH 2026)**.
+- **Design Credits**: Conceptual design and tokens exported from **Stitch**.
+- **Engineering Partner**: Full-stack codebase and mathematical implementation generated with **Google Antigravity AI**.
