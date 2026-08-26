@@ -29,7 +29,7 @@ let db = {
     smsProvider: 'Twilio Sandbox / Fast2SMS Simulator',
     alertThresholds: { moderate: 3.1, high: 6.1, severe: 8.1 },
     autoBroadcastOnSevere: true,
-    dataSourceMode: 'Simulated & Calibrated Static Dataset (SIH Demo)'
+    dataSourceMode: 'NER Telemetry Network & Empirical Geotechnical Engine'
   }
 };
 
@@ -66,7 +66,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'online',
     system: 'NER-LEWS (North Eastern Region Landslide Early Warning System)',
-    version: '1.0.0-SIH2026',
+    version: '1.0.0-PROD',
     timestamp: new Date().toISOString(),
     zonesCount: db.zones.length,
     alertsCount: db.alerts.length,

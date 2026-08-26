@@ -25,7 +25,7 @@ export default function Footer() {
         </div>
 
         <span className="text-body-sm text-on-surface-variant">
-          Smart India Hackathon (SIH 2026) Landslide Early Warning Prototype
+          North Eastern Region Landslide Early Warning & Disaster Decision Support Platform
         </span>
       </div>
 

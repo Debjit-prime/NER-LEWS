@@ -3,7 +3,7 @@
  * ---------------------------------------------------------------
  * Transparent, Rule-Based Landslide Risk Scoring Algorithm
  * 
- * DESIGN RATIONALE FOR SIH JUDGES:
+ * DESIGN RATIONALE & METHODOLOGY:
  * Instead of an unexplainable black-box machine learning model, this engine
  * uses an empirical, weighted multi-criteria decision analysis (MCDA) framework.
  * It is grounded in geomorphological and geotechnical research specific to

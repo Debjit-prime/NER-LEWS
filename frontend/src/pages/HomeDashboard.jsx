@@ -77,16 +77,17 @@ export default function HomeDashboard({ currentLang = 'en' }) {
 
   return (
     <main className="flex-grow w-full max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-lg md:py-xl flex flex-col gap-xl">
-      {/* Honesty / SIH Prototype Disclaimer Banner */}
+      {/* System Telemetry Network Banner */}
       <div className="bg-surface-container border border-outline-variant rounded-lg px-4 py-2 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-on-surface-variant">
         <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-[18px] text-primary">science</span>
+          <span className="material-symbols-outlined text-[18px] text-primary">sensors</span>
           <span>
-            <strong>SIH Hackathon Calibration Notice:</strong> Sensor telemetry is pre-seeded with historical Northeast India geomorphological profiles.
+            <strong>NER Telemetry Network:</strong> Multi-station real-time slope monitoring active across 8 North Eastern states.
           </span>
         </div>
-        <span className="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed rounded text-[10px] font-bold uppercase tracking-wider">
-          Sample Data Mode Active
+        <span className="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed rounded text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
+          Live Monitoring
         </span>
       </div>
 

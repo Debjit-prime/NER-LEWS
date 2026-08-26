@@ -43,7 +43,7 @@ export default function RiskScoring() {
     setCalculationResult(res);
   }, [temperature, humidity, precipitation, soilMoisture, elevation]);
 
-  // Presets for SIH judging demonstration
+  // Presets for regional slope scenarios
   const presets = [
     {
       name: 'Cherrapunji Monsoon (Severe)',
@@ -322,7 +322,7 @@ export default function RiskScoring() {
                 </p>
               </div>
 
-              {/* Sub-Score Breakdown Table for Hackathon Judges */}
+              {/* Sub-Score Multi-Criteria Breakdown Table */}
               <div className="w-full max-w-lg border border-outline-variant rounded-xl overflow-hidden text-left text-xs mb-lg bg-surface">
                 <div className="bg-surface-container-high px-3 py-2 font-bold text-on-surface uppercase tracking-wider flex justify-between">
                   <span>Transparent Scoring Breakdown</span>

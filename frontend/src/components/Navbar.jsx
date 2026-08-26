@@ -39,7 +39,7 @@ export default function Navbar({ currentLang = 'en', onLanguageChange, unreadAle
               NER-LEWS
             </span>
             <span className="hidden lg:inline-block ml-1 px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[11px] font-semibold rounded-full border border-secondary-fixed-dim">
-              SIH 2026 Prototype
+              Live System v1.0
             </span>
           </Link>
 

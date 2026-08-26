@@ -480,7 +480,7 @@ export default function AuthorityDashboard() {
               </div>
 
               <div className="p-3 bg-secondary-fixed/50 rounded-lg text-xs font-mono text-primary">
-                Current Gateway: {demoMode ? 'In-App Telecom Simulator (Zero Cost Hackathon Tier)' : 'Twilio / Fast2SMS API Gateway'}
+                Current Gateway: {demoMode ? 'In-App Telecom Sandbox Simulator (Demonstration Engine)' : 'Twilio / Fast2SMS API Gateway'}
               </div>
             </div>
 
