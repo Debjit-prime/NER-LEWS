@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../utils/api';
+import { useAuth } from '../context/AuthContext';
 
 export default function CitizenReport() {
+  const { user, isAuthenticated, openAuthModal } = useAuth();
+
   const [coords, setCoords] = useState({ lat: 25.5788, lng: 91.8933 });
   const [locationName, setLocationName] = useState('Shillong Approach Road, East Khasi Hills');
-  const [district, setDistrict] = useState('East Khasi Hills');
+  const [district, setDistrict] = useState(user?.district || 'East Khasi Hills');
   const [description, setDescription] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
@@ -79,6 +82,9 @@ export default function CitizenReport() {
         locationName,
         district,
         description,
+        reporterName: user?.name || 'Anonymous Citizen Reporter',
+        reporterEmail: user?.email || '',
+        reporterRole: user?.role || 'citizen',
         tags: selectedTags.length > 0 ? selectedTags : ['Citizen Field Report'],
         imageUrl: imagePreview || 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=600&q=80'
       });
@@ -113,6 +119,32 @@ export default function CitizenReport() {
               Submit Citizen Hazard Report
             </h1>
             <div className="w-10"></div>
+          </div>
+
+          {/* Reporter Identification Banner */}
+          <div className="bg-surface-container border border-outline-variant rounded-xl p-3 flex items-center justify-between text-xs">
+            {isAuthenticated && user ? (
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-primary text-[20px]">verified_user</span>
+                <span>
+                  Reporting as: <strong className="text-primary">{user.name}</strong> ({user.role === 'authority' ? 'SDMA Officer' : 'Verified Citizen'})
+                </span>
+              </div>
+            ) : (
+              <div className="flex items-center justify-between w-full">
+                <div className="flex items-center gap-1.5 text-on-surface-variant">
+                  <span className="material-symbols-outlined text-[18px]">person_outline</span>
+                  <span>Submitting anonymously as Citizen Observer</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => openAuthModal({ mode: 'login' })}
+                  className="text-primary font-bold hover:underline"
+                >
+                  Sign In to attach profile
+                </button>
+              </div>
+            )}
           </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-lg">

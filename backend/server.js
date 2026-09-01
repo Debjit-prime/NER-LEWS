@@ -23,6 +23,7 @@ let db = {
   alerts: [],
   reports: [],
   smsQueue: [],
+  users: [],
   settings: {
     smsGatewayMode: 'Demo Mode (Simulated)',
     demoMode: true,
@@ -37,7 +38,7 @@ try {
   if (fs.existsSync(dataFilePath)) {
     const rawData = fs.readFileSync(dataFilePath, 'utf8');
     db = JSON.parse(rawData);
-    console.log(`[NER-LEWS DB] Successfully loaded ${db.zones?.length || 0} zones and ${db.alerts?.length || 0} alerts.`);
+    console.log(`[NER-LEWS DB] Successfully loaded ${db.zones?.length || 0} zones, ${db.alerts?.length || 0} alerts, and ${db.users?.length || 0} users.`);
   }
 } catch (err) {
   console.warn('[NER-LEWS DB] Warning reading ner_data.json, initializing empty db:', err.message);
@@ -47,14 +48,17 @@ if (!Array.isArray(db.zones)) db.zones = [];
 if (!Array.isArray(db.alerts)) db.alerts = [];
 if (!Array.isArray(db.reports)) db.reports = [];
 if (!Array.isArray(db.smsQueue)) db.smsQueue = [];
+if (!Array.isArray(db.users)) db.users = [];
 
 // Mount REST Route Handlers
+const authRouter = require('./routes/authRoutes')(db);
 const riskRouter = require('./routes/riskRoutes');
 const zoneRouter = require('./routes/zoneRoutes')(db);
 const reportRouter = require('./routes/reportRoutes')(db);
 const alertRouter = require('./routes/alertRoutes')(db);
 const smsRouter = require('./routes/smsRoutes')(db);
 
+app.use('/api/auth', authRouter);
 app.use('/api/risk', riskRouter);
 app.use('/api/zones', zoneRouter);
 app.use('/api/reports', reportRouter);
@@ -71,6 +75,7 @@ app.get('/api/health', (req, res) => {
     zonesCount: db.zones.length,
     alertsCount: db.alerts.length,
     reportsCount: db.reports.length,
+    usersCount: db.users.length,
     demoMode: db.settings.demoMode
   });
 });
@@ -91,6 +96,10 @@ if (fs.existsSync(frontendDistPath)) {
       message: 'NER-LEWS REST API Server is running.',
       endpoints: [
         '/api/health',
+        '/api/auth/login',
+        '/api/auth/register',
+        '/api/auth/me',
+        '/api/auth/demo-users',
         '/api/risk/calculate',
         '/api/zones',
         '/api/reports',
@@ -106,6 +115,7 @@ app.listen(PORT, () => {
   console.log(`\n======================================================`);
   console.log(`🚀 NER-LEWS Backend API Server running on port ${PORT}`);
   console.log(`   Health Check: http://localhost:${PORT}/api/health`);
+  console.log(`   Auth Routes:  http://localhost:${PORT}/api/auth/demo-users`);
   console.log(`   Risk Scoring: http://localhost:${PORT}/api/risk/calculate`);
   console.log(`======================================================\n`);
 });

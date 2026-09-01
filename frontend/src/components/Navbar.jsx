@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar({ currentLang = 'en', onLanguageChange, unreadAlertsCount = 3 }) {
   const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, isAuthenticated, isAuthority, openAuthModal, logout, quickLogin } = useAuth();
 
   const languages = [
     { code: 'en', label: 'English (EN)', flag: '🇮🇳' },
@@ -82,12 +85,12 @@ export default function Navbar({ currentLang = 'en', onLanguageChange, unreadAle
         </div>
       </div>
 
-      {/* Right Controls: Language Selector, Notifications, Status */}
+      {/* Right Controls: Language Selector, Notifications, User Auth */}
       <div className="flex items-center gap-sm md:gap-md text-primary relative">
         {/* Language Selector Dropdown */}
         <div className="relative">
           <button
-            onClick={() => setLangMenuOpen(!langMenuOpen)}
+            onClick={() => { setLangMenuOpen(!langMenuOpen); setUserMenuOpen(false); }}
             aria-label="Language Selector"
             className="flex items-center gap-1 px-2.5 py-1.5 rounded-full hover:bg-surface-container-low border border-outline-variant/60 transition-colors text-body-sm font-semibold text-primary"
             title="Switch Language (EN / AS / HI / BN)"
@@ -98,7 +101,7 @@ export default function Navbar({ currentLang = 'en', onLanguageChange, unreadAle
           </button>
 
           {langMenuOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg z-50 py-1 overflow-hidden">
+            <div className="absolute right-0 mt-2 w-48 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg z-50 py-1 overflow-hidden animate-fadeIn">
               <div className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-on-surface-variant border-b border-outline-variant bg-surface-container-low">
                 Select Language
               </div>
@@ -139,15 +142,105 @@ export default function Navbar({ currentLang = 'en', onLanguageChange, unreadAle
           )}
         </Link>
 
-        {/* Authority / Account */}
-        <Link
-          to="/authority"
-          aria-label="Authority Portal"
-          className="hover:bg-surface-container-low p-2 rounded-full transition-colors hidden sm:flex items-center justify-center text-primary"
-          title="Authority Portal"
-        >
-          <span className="material-symbols-outlined text-[22px]">admin_panel_settings</span>
-        </Link>
+        {/* User Authentication Menu / Button */}
+        {isAuthenticated && user ? (
+          <div className="relative">
+            <button
+              onClick={() => { setUserMenuOpen(!userMenuOpen); setLangMenuOpen(false); }}
+              className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-full bg-surface-container hover:bg-surface-container-high border border-outline-variant transition-colors"
+            >
+              <div className={`w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold ${isAuthority ? 'bg-primary' : 'bg-secondary'}`}>
+                {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+              </div>
+              <div className="hidden sm:flex flex-col items-start text-left">
+                <span className="text-xs font-bold text-on-surface leading-tight truncate max-w-[100px]">
+                  {user.name.split(' ')[0]}
+                </span>
+                <span className={`text-[9px] font-semibold uppercase px-1 rounded ${isAuthority ? 'bg-primary/10 text-primary' : 'bg-secondary-fixed text-on-secondary-fixed'}`}>
+                  {isAuthority ? 'Officer' : 'Citizen'}
+                </span>
+              </div>
+              <span className="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span>
+            </button>
+
+            {userMenuOpen && (
+              <div className="absolute right-0 mt-2 w-64 bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-xl z-50 py-2 overflow-hidden animate-fadeIn">
+                {/* User Info Card */}
+                <div className="px-4 py-3 bg-surface-container-low border-b border-outline-variant">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${isAuthority ? 'bg-primary text-white' : 'bg-secondary-fixed text-on-secondary-fixed'}`}>
+                      {isAuthority ? 'SDMA Authority' : 'Citizen Reporter'}
+                    </span>
+                  </div>
+                  <div className="text-sm font-bold text-on-surface truncate">{user.name}</div>
+                  <div className="text-xs text-on-surface-variant truncate">{user.email}</div>
+                  {user.designation && (
+                    <div className="text-[11px] text-primary font-medium mt-1">
+                      {user.designation} ({user.district})
+                    </div>
+                  )}
+                </div>
+
+                {/* Navigation Options */}
+                <div className="py-1">
+                  {isAuthority && (
+                    <Link
+                      to="/authority"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="w-full text-left px-4 py-2 text-xs font-bold text-primary hover:bg-surface-container flex items-center gap-2"
+                    >
+                      <span className="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+                      <span>Authority Incident Portal</span>
+                    </Link>
+                  )}
+                  <Link
+                    to="/report"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="w-full text-left px-4 py-2 text-xs font-bold text-on-surface hover:bg-surface-container flex items-center gap-2"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">add_location_alt</span>
+                    <span>Submit Citizen Report</span>
+                  </Link>
+                </div>
+
+                <div className="border-t border-outline-variant my-1"></div>
+
+                {/* Quick Role Switcher for Demo */}
+                <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
+                  Switch Demo Identity
+                </div>
+                <button
+                  onClick={() => { quickLogin(isAuthority ? 'citizen' : 'authority'); setUserMenuOpen(false); }}
+                  className="w-full text-left px-4 py-1.5 text-xs text-on-surface hover:bg-surface-container flex items-center justify-between"
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[16px] text-primary">sync_alt</span>
+                    <span>Switch to {isAuthority ? 'Citizen' : 'SDMA Officer'}</span>
+                  </span>
+                </button>
+
+                <div className="border-t border-outline-variant my-1"></div>
+
+                {/* Logout Button */}
+                <button
+                  onClick={() => { logout(); setUserMenuOpen(false); }}
+                  className="w-full text-left px-4 py-2 text-xs font-bold text-error hover:bg-error-container/30 flex items-center gap-2 transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[18px]">logout</span>
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <button
+            onClick={() => openAuthModal({ mode: 'login' })}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-on-primary hover:bg-primary-container text-xs font-bold transition-all shadow-sm"
+          >
+            <span className="material-symbols-outlined text-[16px] text-secondary-fixed">lock</span>
+            <span>Sign In</span>
+          </button>
+        )}
       </div>
     </nav>
   );

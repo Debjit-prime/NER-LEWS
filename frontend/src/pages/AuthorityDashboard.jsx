@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../utils/api';
+import { useAuth } from '../context/AuthContext';
 import SmsSimulationModal from '../components/SmsSimulationModal';
 import { initialZones, initialReports } from '../data/seedData';
 
 export default function AuthorityDashboard() {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'zones' | 'reports' | 'settings'
   const [zones, setZones] = useState(initialZones);
   const [reports, setReports] = useState(initialReports);
@@ -139,6 +141,23 @@ export default function AuthorityDashboard() {
           <span className="material-symbols-outlined text-[20px]">settings</span>
           <span>Settings & SMS</span>
         </button>
+
+        {/* Active Officer Profile Chip */}
+        {user && (
+          <div className="mt-2 p-3 bg-surface border border-outline-variant rounded-xl flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold shrink-0">
+              {user.name ? user.name.charAt(0).toUpperCase() : 'O'}
+            </div>
+            <div className="flex flex-col min-w-0">
+              <span className="text-xs font-bold text-on-surface truncate leading-tight">
+                {user.name}
+              </span>
+              <span className="text-[10px] text-primary font-semibold truncate">
+                {user.designation || 'SDMA Commander'}
+              </span>
+            </div>
+          </div>
+        )}
       </aside>
 
       {/* Main Content Pane */}

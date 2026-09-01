@@ -5,7 +5,126 @@ import { calculateClientRiskScore } from './riskCalculator';
 const RAW_API_URL = import.meta.env.VITE_API_URL || '/api';
 const API_BASE = RAW_API_URL.endsWith('/') ? RAW_API_URL.slice(0, -1) : RAW_API_URL;
 
+function getAuthHeaders() {
+  const token = localStorage.getItem('ner_lews_token');
+  return {
+    'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {})
+  };
+}
+
 export const api = {
+  // Authentication: Login
+  async login({ email, password }) {
+    try {
+      const res = await fetch(`${API_BASE}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Login failed');
+      return data.data;
+    } catch (err) {
+      console.warn('[NER-LEWS Auth API] Using local fallback login:', err.message);
+      // Client-side fallback for offline testing
+      const isOfficer = email.toLowerCase().includes('officer') || email.toLowerCase().includes('sdma') || email.toLowerCase().includes('dm');
+      const fallbackUser = {
+        id: isOfficer ? 'USR-AUTH-001' : 'USR-CIT-001',
+        name: isOfficer ? 'Col. Rajesh Sangma' : 'Tenzin Norbu',
+        email: email,
+        role: isOfficer ? 'authority' : 'citizen',
+        designation: isOfficer ? 'SDMA Field Commander' : 'Citizen Reporter',
+        district: 'East Khasi Hills',
+        state: 'Meghalaya'
+      };
+      return {
+        token: `mock-jwt-token-${Date.now()}`,
+        user: fallbackUser
+      };
+    }
+  },
+
+  // Authentication: Register
+  async register(userData) {
+    try {
+      const res = await fetch(`${API_BASE}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Registration failed');
+      return data.data;
+    } catch (err) {
+      console.warn('[NER-LEWS Auth API] Using local fallback register:', err.message);
+      const fallbackUser = {
+        id: `USR-${Date.now().toString().slice(-6)}`,
+        name: userData.name,
+        email: userData.email,
+        role: userData.role || 'citizen',
+        designation: userData.designation || (userData.role === 'authority' ? 'Disaster Response Officer' : 'Citizen Reporter'),
+        district: userData.district || 'East Khasi Hills',
+        state: userData.state || 'Meghalaya'
+      };
+      return {
+        token: `mock-jwt-token-${Date.now()}`,
+        user: fallbackUser
+      };
+    }
+  },
+
+  // Authentication: Get Current Session
+  async getMe() {
+    try {
+      const res = await fetch(`${API_BASE}/auth/me`, {
+        headers: getAuthHeaders()
+      });
+      if (!res.ok) throw new Error('Session invalid');
+      const data = await res.json();
+      return data.data.user;
+    } catch (err) {
+      return null;
+    }
+  },
+
+  // Authentication: Get Demo Users list
+  async getDemoUsers() {
+    try {
+      const res = await fetch(`${API_BASE}/auth/demo-users`);
+      if (!res.ok) throw new Error('Failed to fetch demo users');
+      const data = await res.json();
+      return data.data;
+    } catch (err) {
+      return [
+        {
+          role: 'authority',
+          label: 'SDMA Field Commander',
+          email: 'officer@sdma.gov.in',
+          password: 'Officer@123',
+          name: 'Col. Rajesh Sangma',
+          badge: 'Authority Access'
+        },
+        {
+          role: 'authority',
+          label: 'District Magistrate',
+          email: 'dm@shillong.gov.in',
+          password: 'Admin@123',
+          name: 'Dr. S. K. Marak, IAS',
+          badge: 'DDMA Chair'
+        },
+        {
+          role: 'citizen',
+          label: 'Citizen / Volunteer',
+          email: 'citizen@ner.in',
+          password: 'Citizen@123',
+          name: 'Tenzin Norbu',
+          badge: 'Citizen Access'
+        }
+      ];
+    }
+  },
+
   // Fetch hazard zones
   async getZones(params = {}) {
     try {
@@ -59,7 +178,7 @@ export const api = {
     try {
       const res = await fetch(`${API_BASE}/alerts`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders(),
         body: JSON.stringify(alertData)
       });
       if (!res.ok) throw new Error('Failed to broadcast alert');
@@ -95,7 +214,7 @@ export const api = {
     try {
       const res = await fetch(`${API_BASE}/reports`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders(),
         body: JSON.stringify(reportData)
       });
       if (!res.ok) throw new Error('Failed to submit report');
@@ -118,7 +237,7 @@ export const api = {
     try {
       const res = await fetch(`${API_BASE}/sms/send`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders(),
         body: JSON.stringify(smsData)
       });
       if (!res.ok) throw new Error('SMS API call failed');
@@ -139,7 +258,9 @@ export const api = {
   // Get SMS history
   async getSmsHistory() {
     try {
-      const res = await fetch(`${API_BASE}/sms/history`);
+      const res = await fetch(`${API_BASE}/sms/history`, {
+        headers: getAuthHeaders()
+      });
       if (!res.ok) throw new Error('API request failed');
       const data = await res.json();
       return data.data || [];
